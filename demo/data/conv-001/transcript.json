@@ -1,0 +1,106 @@
+{
+  "conversationId": "conv-001",
+  "date": "2026-02-02T08:30:00Z",
+  "turns": [
+    {
+      "speaker": "user",
+      "text": "Morning! Just wanted to check in. Started the week pretty strong — got a good eight K run in yesterday around Dolores Park.",
+      "t_ms": 1770021000000
+    },
+    {
+      "speaker": "assistant",
+      "text": "Nice work, Alex! Eight K is solid. How's the knee been holding up? Last time you mentioned some soreness after longer runs.",
+      "t_ms": 1770021004000
+    },
+    {
+      "speaker": "user",
+      "text": "Actually it's been way better. I've been stretching more and doing yoga twice a week. The physio was right about consistency — it really makes a difference.",
+      "t_ms": 1770021018000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That's great to hear. Consistency with the yoga and stretching sounds like it's paying off. How's everything else going — work, the Spain trip planning?",
+      "t_ms": 1770021023000
+    },
+    {
+      "speaker": "user",
+      "text": "Work is picking up. The dashboard launch is end of February and the pressure is starting to build. But honestly, I'm making real progress on work-life balance. Left the office by six every day this week.",
+      "t_ms": 1770021038000
+    },
+    {
+      "speaker": "assistant",
+      "text": "Leaving by six consistently is a real achievement, especially with a big launch coming. That's a concrete boundary. What about the Spain trip?",
+      "t_ms": 1770021043000
+    },
+    {
+      "speaker": "user",
+      "text": "Jamie and I have been looking at hotels in Barcelona. We're set on June. And between us — I've been thinking about proposing there. Four years together feels right.",
+      "t_ms": 1770021060000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That's wonderful! Barcelona would be an amazing place for a proposal. Have you started looking into any details?",
+      "t_ms": 1770021065000
+    },
+    {
+      "speaker": "user",
+      "text": "Not yet, just the idea. I want to learn enough Spanish to at least say the important parts. My Duolingo streak is at a hundred and forty-two days now, so I'm committed.",
+      "t_ms": 1770021080000
+    },
+    {
+      "speaker": "assistant",
+      "text": "A hundred and forty-two days — that's impressive dedication. The personal touch of proposing in Spanish would be really special.",
+      "t_ms": 1770021085000
+    },
+    {
+      "speaker": "user",
+      "text": "Yeah, that's the dream. Oh — I should mention, I need to visit Mom in Sacramento soon. It's been over a month and I keep putting it off. She's been asking.",
+      "t_ms": 1770021100000
+    },
+    {
+      "speaker": "assistant",
+      "text": "It sounds like family is important to you. Would you like me to help you remember to plan that visit?",
+      "t_ms": 1770021105000
+    },
+    {
+      "speaker": "user",
+      "text": "Yeah that'd be good. Also my sister Maya's birthday is tomorrow, February third. I still need to send her something — she's been into fitness lately so maybe some nice workout gear.",
+      "t_ms": 1770021120000
+    },
+    {
+      "speaker": "assistant",
+      "text": "I'll note that down — Maya's birthday tomorrow. Fitness gear sounds like a thoughtful choice given her interests. Want me to add a reminder?",
+      "t_ms": 1770021125000
+    },
+    {
+      "speaker": "user",
+      "text": "Sure. Luna has been hilarious lately by the way — she stole Jamie's running shoe this morning and paraded it around the apartment like a trophy.",
+      "t_ms": 1770021142000
+    },
+    {
+      "speaker": "assistant",
+      "text": "Ha! Golden retrievers and shoes — a classic combination. It sounds like things are generally going well. Running, yoga, work boundaries, Spain planning. How are you feeling about the overall balance?",
+      "t_ms": 1770021148000
+    },
+    {
+      "speaker": "user",
+      "text": "Honestly? Pretty good. Better than last month for sure. The running helps clear my head, the yoga keeps the knee in check, and leaving work on time gives me evenings back. I feel like I'm finally getting a handle on things.",
+      "t_ms": 1770021165000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That's a really positive shift, Alex. You've built some solid routines — running, yoga, work boundaries. Keep that momentum going.",
+      "t_ms": 1770021170000
+    },
+    {
+      "speaker": "user",
+      "text": "Thanks. Talk soon!",
+      "t_ms": 1770021183000
+    },
+    {
+      "speaker": "assistant",
+      "text": "Have a great day! And don't forget Maya's gift — her birthday is tomorrow.",
+      "t_ms": 1770021186000
+    }
+  ]
+}

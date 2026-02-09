@@ -1,0 +1,78 @@
+<svg width="512" height="512" viewBox="102 116 308 308" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Subtle background glow -->
+  <g opacity="0.2">
+    <ellipse cx="256" cy="256" rx="200" ry="200" fill="url(#glow-gradient)" filter="url(#blur)"/>
+  </g>
+  
+  <!-- Fused User Icons: Two MSN-style silhouettes merged at center -->
+  <g opacity="0.95">
+    <!-- Left User Silhouette (User) -->
+    <g transform="translate(-30, 0)">
+      <!-- Head -->
+      <circle cx="220" cy="200" r="50" fill="url(#left-gradient)" opacity="0.9"/>
+      <!-- Shoulders/Body -->
+      <path d="M 220 250 Q 170 250 150 290 Q 140 310 140 340 L 140 380 Q 140 390 150 390 L 256 390 L 256 340 Q 256 290 240 270 Q 230 250 220 250 Z" 
+            fill="url(#left-gradient)" 
+            opacity="0.9"/>
+    </g>
+    
+    <!-- Right User Silhouette (AI) -->
+    <g transform="translate(30, 0)">
+      <!-- Head -->
+      <circle cx="292" cy="200" r="50" fill="url(#right-gradient)" opacity="0.9"/>
+      <!-- Shoulders/Body -->
+      <path d="M 292 250 Q 282 250 272 270 Q 256 290 256 340 L 256 390 L 362 390 Q 372 390 372 380 L 372 340 Q 372 310 362 290 Q 342 250 292 250 Z" 
+            fill="url(#right-gradient)" 
+            opacity="0.9"/>
+    </g>
+    
+    <!-- Center Fusion Area (Overlap highlight) -->
+    <rect x="254.5" y="220" width="3" height="170" fill="url(#center-gradient)" opacity="0.5"/>
+    
+    <!-- AI Symbol overlay on right head -->
+    <g transform="translate(30, 0)" opacity="0.6">
+      <circle cx="310" cy="185" r="8" fill="#a5b4fc"/>
+      <circle cx="292" cy="185" r="6" fill="#a5b4fc"/>
+      <circle cx="274" cy="185" r="4" fill="#a5b4fc"/>
+    </g>
+  </g>
+  
+  <!-- Definitions -->
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#09090b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#18181b;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Left silhouette gradient (User) -->
+    <linearGradient id="left-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#818cf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Right silhouette gradient (AI) -->
+    <linearGradient id="right-gradient" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Center fusion gradient -->
+    <linearGradient id="center-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a5b4fc;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a5b4fc;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow gradient -->
+    <radialGradient id="glow-gradient">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Blur filter -->
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="30" />
+    </filter>
+  </defs>
+</svg>

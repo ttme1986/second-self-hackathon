@@ -1,0 +1,133 @@
+/**
+ * This ruleset enforces a strict user-ownership model for the SynapseMind application.
+ * All user-generated data is isolated within a user-specific data tree, ensuring
+ * that users can only access their own information.
+ *
+ * Core Philosophy:
+ * - Default Deny: Access is denied unless explicitly granted.
+ * - Strict Ownership: All user content is stored under a path containing their
+ *   unique user ID (`/users/{userId}/...`). Rules enforce that the authenticated
+ *   user's ID must match the ID in the path.
+ * - Authorization over Validation: In this prototyping stage, rules prioritize
+ *   verifying *who* can access data over validating the *shape* of that data.
+ *   Only fields critical for authorization (like `userId`) are validated.
+ *
+ * Data Structure:
+ * - The root of all user data is the `/users/{userId}` collection.
+ * - Each user document (`/users/{userId}`) contains profile fields (displayName, email, etc.)
+ * - User data is stored in subcollections under the user document:
+ *   - /users/{userId}/actions/{actionId} (source of truth for Follow-ups/openLoops in UI)
+ *   - /users/{userId}/claims/{claimId}
+ *   - /users/{userId}/conversations/{conversationId} (displayed as "Memories" in UI)
+ *   - /users/{userId}/goals/{goalId}
+ *   - /users/{userId}/reviewQueue/{reviewId}
+ *
+ * Note: insights are computed dynamically from claims, goals, and conversations (not stored)
+ *
+ * Key Security Decisions:
+ * - User Privacy: Listing documents in the top-level `/users` collection is
+ *   disallowed to prevent user enumeration.
+ * - Path-Based Security: Authorization is primarily derived from the document path.
+ *   This avoids costly and complex `get()` calls to other documents for
+ *   permission checks.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for concise and readable rules.
+
+    /**
+     * Checks if a user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Checks if the currently authenticated user is the owner of the document,
+     * based on the userId provided in the path.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * Checks if the user is the owner AND the document already exists.
+     * CRITICAL for all update and delete operations to prevent modifying non-existent data.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Controls access to user profile documents.
+     * @path /users/{userId}
+     *
+     * User document contains profile fields:
+     * - uid, displayName, email, geoCapture, onboardingComplete, photoURL, updatedAt
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && request.resource.data.uid == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.uid == resource.data.uid;
+      allow delete: if isExistingOwner(userId);
+
+      /**
+       * @description Secures user-specific actions (follow-ups, tasks).
+       * @path /users/{userId}/actions/{actionId}
+       */
+      match /actions/{actionId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Secures user-specific claims (knowledge extracted from conversations).
+       * @path /users/{userId}/claims/{claimId}
+       */
+      match /claims/{claimId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Secures user-specific conversations.
+       * @path /users/{userId}/conversations/{conversationId}
+       */
+      match /conversations/{conversationId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Secures user-specific goals.
+       * @path /users/{userId}/goals/{goalId}
+       */
+      match /goals/{goalId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Secures user-specific review queue items (claims to review).
+       * @path /users/{userId}/reviewQueue/{reviewId}
+       */
+      match /reviewQueue/{reviewId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+  }
+}

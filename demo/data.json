@@ -1,0 +1,389 @@
+{
+  "profile": {
+    "uid": "demo-user-alex-chen",
+    "displayName": "Alex",
+    "email": "demo@example.com",
+    "photoURL": null,
+    "geoCapture": true,
+    "onboardingComplete": true,
+    "defaultActionPermission": "suggest",
+    "actionPermissions": {
+      "reminder": "execute",
+      "email": "draft",
+      "calendar": "draft"
+    }
+  },
+
+  "claims": {
+    "claim-001": {
+      "id": "claim-001",
+      "text": "Senior Product Manager at CloudSync",
+      "category": "career",
+      "confidence": 0.95,
+      "evidence": ["I'm a Senior Product Manager at a startup called CloudSync."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "pinned": true,
+      "createdAt": "2026-02-02T08:35:00Z"
+    },
+    "claim-002": {
+      "id": "claim-002",
+      "text": "Lives in San Francisco with partner Jamie and dog Luna",
+      "category": "relationships",
+      "confidence": 0.95,
+      "evidence": ["Jamie and I have been looking at hotels in Barcelona.", "Luna has been hilarious lately — she stole Jamie's running shoe this morning."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "pinned": true,
+      "createdAt": "2026-02-02T08:38:00Z"
+    },
+    "claim-003": {
+      "id": "claim-003",
+      "text": "Training for first half-marathon in April",
+      "category": "health",
+      "confidence": 0.9,
+      "evidence": ["The training plan says I should be around this distance by now so I'm right on track."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "pinned": true,
+      "createdAt": "2026-02-02T08:36:00Z"
+    },
+    "claim-004": {
+      "id": "claim-004",
+      "text": "Does yoga twice a week for stress relief and knee health",
+      "category": "health",
+      "confidence": 0.8,
+      "evidence": ["I've been stretching more and doing yoga twice a week. The physio was right about consistency."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "createdAt": "2026-02-02T08:34:00Z"
+    },
+    "claim-005": {
+      "id": "claim-005",
+      "text": "Planning trip to Spain in June with Jamie",
+      "category": "personal",
+      "confidence": 0.85,
+      "evidence": ["Jamie and I have been looking at hotels in Barcelona. We're set on June."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "pinned": true,
+      "createdAt": "2026-02-02T08:38:00Z"
+    },
+    "claim-006": {
+      "id": "claim-006",
+      "text": "Making real progress on work-life balance — leaving office by six daily",
+      "category": "career",
+      "confidence": 0.7,
+      "evidence": ["I'm making real progress on work-life balance. Left the office by six every day this week.", "I feel like I'm finally getting a handle on things."],
+      "status": "inferred",
+      "conversationId": "conv-001",
+      "createdAt": "2026-02-02T08:40:00Z"
+    },
+    "claim-007": {
+      "id": "claim-007",
+      "text": "Sister Maya's birthday is February 3",
+      "category": "relationships",
+      "confidence": 0.95,
+      "evidence": ["My sister Maya's birthday is tomorrow, February third."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "createdAt": "2026-02-02T08:39:00Z"
+    },
+    "claim-008": {
+      "id": "claim-008",
+      "text": "Hasn't visited Mom in Sacramento in over a month",
+      "category": "relationships",
+      "confidence": 0.8,
+      "evidence": ["I need to visit Mom in Sacramento soon. It's been over a month and I keep putting it off."],
+      "status": "inferred",
+      "conversationId": "conv-001",
+      "createdAt": "2026-02-02T08:39:00Z"
+    },
+    "claim-009": {
+      "id": "claim-009",
+      "text": "Considering proposing to Jamie in Barcelona",
+      "category": "relationships",
+      "confidence": 0.9,
+      "evidence": ["I've been thinking about proposing there. Four years together feels right.", "The Barcelona proposal is really taking shape in my head."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "pinned": true,
+      "createdAt": "2026-02-02T08:38:00Z"
+    },
+    "claim-010": {
+      "id": "claim-010",
+      "text": "Duolingo streak at 148 days — learning Spanish for Spain trip",
+      "category": "learning",
+      "confidence": 0.85,
+      "evidence": ["Duolingo streak is at a hundred and forty-eight now.", "I want to learn enough Spanish to at least say the important parts."],
+      "status": "confirmed",
+      "conversationId": "conv-002",
+      "createdAt": "2026-02-08T19:10:00Z"
+    },
+    "claim-011": {
+      "id": "claim-011",
+      "text": "Completed 10K run with no knee pain",
+      "category": "health",
+      "confidence": 0.85,
+      "evidence": ["I crushed a ten K run this morning. Felt amazing. Knee was totally fine, which is huge."],
+      "status": "confirmed",
+      "conversationId": "conv-002",
+      "createdAt": "2026-02-08T19:02:00Z"
+    },
+    "claim-012": {
+      "id": "claim-012",
+      "text": "Stayed past midnight twice this week for dashboard launch prep",
+      "category": "career",
+      "confidence": 0.8,
+      "evidence": ["I stayed past midnight twice this week prepping for the dashboard launch. The VP pulled the timeline forward by two weeks and everyone's scrambling."],
+      "status": "inferred",
+      "conversationId": "conv-002",
+      "createdAt": "2026-02-08T19:06:00Z"
+    },
+    "claim-013": {
+      "id": "claim-013",
+      "text": "Dashboard launch deadline end of February",
+      "category": "career",
+      "confidence": 0.9,
+      "evidence": ["The dashboard launch is end of February and the pressure is starting to build.", "The VP pulled the timeline forward by two weeks."],
+      "status": "confirmed",
+      "conversationId": "conv-001",
+      "pinned": true,
+      "createdAt": "2026-02-02T08:36:00Z"
+    },
+    "claim-014": {
+      "id": "claim-014",
+      "text": "Mom having minor surgery next month",
+      "category": "relationships",
+      "confidence": 0.85,
+      "evidence": ["Mom called today. She mentioned she's having minor surgery next month. Nothing serious, she says, but she sounded a little worried."],
+      "status": "confirmed",
+      "conversationId": "conv-002",
+      "createdAt": "2026-02-08T19:08:00Z"
+    },
+    "claim-015": {
+      "id": "claim-015",
+      "text": "Browsing engagement rings online",
+      "category": "relationships",
+      "confidence": 0.75,
+      "evidence": ["I've been looking at engagement rings online during lunch breaks. Nothing serious yet, just browsing."],
+      "status": "inferred",
+      "conversationId": "conv-002",
+      "createdAt": "2026-02-08T19:09:00Z"
+    }
+  },
+
+  "actions": {
+    "action-001": {
+      "id": "action-001",
+      "title": "Send Maya birthday gift — workout gear",
+      "dueWindow": "Today",
+      "source": "conversation",
+      "reminder": true,
+      "status": "completed",
+      "conversationId": "conv-001",
+      "evidence": ["My sister Maya's birthday is tomorrow, February third. I still need to send her something — she's been into fitness lately."],
+      "createdAt": "2026-02-02T08:39:00Z"
+    },
+    "action-002": {
+      "id": "action-002",
+      "title": "Visit Mom in Sacramento",
+      "dueWindow": "This Week",
+      "source": "conversation",
+      "reminder": true,
+      "status": "suggested",
+      "conversationId": "conv-001",
+      "evidence": ["I need to visit Mom in Sacramento soon. It's been over a month and I keep putting it off."],
+      "createdAt": "2026-02-02T08:39:00Z"
+    },
+    "action-003": {
+      "id": "action-003",
+      "title": "Research engagement rings",
+      "dueWindow": "This Month",
+      "source": "conversation",
+      "reminder": false,
+      "status": "suggested",
+      "conversationId": "conv-001",
+      "evidence": ["I've been thinking about proposing there. Four years together feels right."],
+      "createdAt": "2026-02-02T08:40:00Z"
+    },
+    "action-004": {
+      "id": "action-004",
+      "title": "Book restaurant for Jamie's birthday dinner — Italian, upscale",
+      "dueWindow": "This Week",
+      "source": "conversation",
+      "reminder": true,
+      "status": "suggested",
+      "conversationId": "conv-002",
+      "evidence": ["Jamie's birthday is next Friday. I want to do something nice — maybe book a restaurant. Italian, something upscale."],
+      "createdAt": "2026-02-08T19:07:00Z"
+    },
+    "action-005": {
+      "id": "action-005",
+      "title": "Schedule Mom visit before her surgery",
+      "dueWindow": "This Month",
+      "source": "conversation",
+      "reminder": true,
+      "status": "suggested",
+      "conversationId": "conv-002",
+      "evidence": ["Mom called today. She mentioned she's having minor surgery next month.", "I really need to get up to Sacramento before then."],
+      "createdAt": "2026-02-08T19:08:00Z"
+    },
+    "action-006": {
+      "id": "action-006",
+      "title": "Attempt 12K run on Saturday",
+      "dueWindow": "Today",
+      "source": "conversation",
+      "reminder": false,
+      "status": "suggested",
+      "conversationId": "conv-002",
+      "evidence": ["I'm thinking about pushing for twelve K tomorrow."],
+      "createdAt": "2026-02-08T19:02:00Z"
+    },
+    "action-007": {
+      "id": "action-007",
+      "title": "Book italki lesson for Spanish conversation practice",
+      "dueWindow": "This Week",
+      "source": "conversation",
+      "reminder": false,
+      "status": "suggested",
+      "conversationId": "conv-002",
+      "evidence": ["I'm thinking about booking an italki lesson to practice actual conversation."],
+      "createdAt": "2026-02-08T19:10:00Z"
+    }
+  },
+
+  "goals": {
+    "goal-001": {
+      "id": "goal-001",
+      "title": "Run a half-marathon",
+      "description": "Complete first half-marathon (21K) by April 2026. Training 3-4x per week with progressive distance increases.",
+      "category": "health",
+      "status": "active",
+      "progress": 48,
+      "targetDate": "2026-04-15",
+      "milestones": [
+        { "id": "m-001", "title": "Complete 5K without stopping", "completed": true, "completedAt": "2026-01-15T00:00:00Z" },
+        { "id": "m-002", "title": "Complete 8K run", "completed": true, "completedAt": "2026-02-01T00:00:00Z" },
+        { "id": "m-003", "title": "Complete 10K run", "completed": true, "completedAt": "2026-02-08T00:00:00Z" },
+        { "id": "m-004", "title": "Complete 15K run", "completed": false },
+        { "id": "m-005", "title": "Complete 18K run", "completed": false },
+        { "id": "m-006", "title": "Race day — finish half-marathon", "completed": false }
+      ],
+      "checkIns": [
+        {
+          "id": "ci-001",
+          "timestamp": "2026-02-02T08:35:00Z",
+          "status": "on-track",
+          "notes": "Completed 8K, knee improving with yoga",
+          "aiResponse": "Great progress! You're on schedule for the April target."
+        },
+        {
+          "id": "ci-002",
+          "timestamp": "2026-02-08T19:02:00Z",
+          "status": "ahead",
+          "notes": "Completed 10K with no knee pain",
+          "aiResponse": "Excellent — you're ahead of your training plan. Consider a 12K attempt this weekend."
+        }
+      ],
+      "linkedActionIds": ["action-006"],
+      "linkedClaimIds": ["claim-003", "claim-011"],
+      "createdAt": "2026-01-15T00:00:00Z"
+    },
+    "goal-002": {
+      "id": "goal-002",
+      "title": "Learn conversational Spanish",
+      "description": "Achieve conversational Spanish proficiency before the June Spain trip. Daily Duolingo + real conversation practice.",
+      "category": "learning",
+      "status": "active",
+      "progress": 38,
+      "targetDate": "2026-06-01",
+      "milestones": [
+        { "id": "m-007", "title": "100-day Duolingo streak", "completed": true, "completedAt": "2026-01-10T00:00:00Z" },
+        { "id": "m-008", "title": "Complete first italki lesson", "completed": false },
+        { "id": "m-009", "title": "Hold 5-minute conversation in Spanish", "completed": false },
+        { "id": "m-010", "title": "Order food and navigate in Spanish", "completed": false }
+      ],
+      "checkIns": [
+        {
+          "id": "ci-003",
+          "timestamp": "2026-02-08T19:10:00Z",
+          "status": "on-track",
+          "notes": "148-day streak, considering italki for real practice",
+          "aiResponse": "You're building a strong foundation. Adding conversation practice will accelerate your progress significantly."
+        }
+      ],
+      "linkedActionIds": ["action-007"],
+      "linkedClaimIds": ["claim-010"],
+      "createdAt": "2026-01-03T00:00:00Z"
+    },
+    "goal-003": {
+      "id": "goal-003",
+      "title": "Get promoted to Director of Product",
+      "description": "Achieve Director-level promotion at CloudSync within 18 months. Key milestone: successful dashboard launch.",
+      "category": "career",
+      "status": "active",
+      "progress": 15,
+      "targetDate": "2027-06-01",
+      "milestones": [
+        { "id": "m-011", "title": "Successfully launch enterprise dashboard", "completed": false },
+        { "id": "m-012", "title": "Complete Q1 OKRs with exceeds rating", "completed": false },
+        { "id": "m-013", "title": "Get positive performance review", "completed": false }
+      ],
+      "checkIns": [],
+      "linkedActionIds": [],
+      "linkedClaimIds": ["claim-001", "claim-013"],
+      "createdAt": "2026-01-20T00:00:00Z"
+    }
+  },
+
+  "conversations": {
+    "conv-001": {
+      "id": "conv-001",
+      "summary": "Morning check-in covering running progress (8K), yoga and knee recovery, work-life balance improvements (leaving by 6pm), Spain trip planning with Jamie, proposal idea for Barcelona, family updates (Mom visit overdue, Maya's birthday tomorrow), and Duolingo streak at 142 days.",
+      "startedAt": "2026-02-02T08:30:00Z",
+      "endedAt": "2026-02-02T08:43:00Z",
+      "durationMs": 780000,
+      "transcriptPath": "users/{userId}/conversations/conv-001/transcript.json",
+      "claimIds": ["claim-001", "claim-002", "claim-003", "claim-004", "claim-005", "claim-006", "claim-007", "claim-008", "claim-009"],
+      "confirmedActionIds": ["action-001", "action-002", "action-003"],
+      "status": "ended",
+      "emotionalStates": [
+        { "primary": "joy", "valence": 0.7, "intensity": 0.6, "confidence": 0.8 },
+        { "primary": "calm", "valence": 0.5, "intensity": 0.4, "confidence": 0.7 }
+      ]
+    },
+    "conv-002": {
+      "id": "conv-002",
+      "summary": "Evening wind-down covering 10K run success (no knee pain), Maya's birthday gift received well, work stress escalation (stayed past midnight twice for dashboard prep), Jamie's birthday dinner plans, Mom's upcoming surgery, engagement ring browsing, and Spanish progress at 148-day Duolingo streak.",
+      "startedAt": "2026-02-08T19:00:00Z",
+      "endedAt": "2026-02-08T19:17:00Z",
+      "durationMs": 1020000,
+      "transcriptPath": "users/{userId}/conversations/conv-002/transcript.json",
+      "claimIds": ["claim-010", "claim-011", "claim-012", "claim-013", "claim-014", "claim-015"],
+      "confirmedActionIds": ["action-004", "action-005", "action-006", "action-007"],
+      "status": "ended",
+      "emotionalStates": [
+        { "primary": "joy", "valence": 0.6, "intensity": 0.5, "confidence": 0.7, "timestamp": "2026-02-08T19:02:00Z" },
+        { "primary": "stress", "valence": -0.4, "intensity": 0.7, "confidence": 0.8, "timestamp": "2026-02-08T19:06:00Z" },
+        { "primary": "calm", "valence": 0.3, "intensity": 0.4, "confidence": 0.6, "timestamp": "2026-02-08T19:10:00Z" }
+      ]
+    }
+  },
+
+  "reviewQueue": {
+    "review-001": {
+      "id": "review-001",
+      "claimIds": ["claim-006", "claim-012"],
+      "claims": [
+        "Making real progress on work-life balance — leaving office by six daily",
+        "Stayed past midnight twice this week for dashboard launch prep"
+      ],
+      "title": "Work-life balance contradiction",
+      "summary": "On Feb 2, Alex reported making real progress on work-life balance and leaving the office by 6pm daily. Six days later on Feb 8, Alex stayed past midnight twice for dashboard prep. These statements directly contradict each other.",
+      "conversationId": "conv-002",
+      "status": "pending",
+      "severity": "high"
+    }
+  }
+}

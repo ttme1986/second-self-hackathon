@@ -1,0 +1,10 @@
+*/debug.log
+.DS_Store
+app/env
+/app/screenshots
+firebase/service-account.json
+app/test-results/.last-run.json
+/app/demo-output
+/debug
+/.claude
+CLAUDE.md

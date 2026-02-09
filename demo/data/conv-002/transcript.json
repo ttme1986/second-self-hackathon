@@ -1,0 +1,106 @@
+{
+  "conversationId": "conv-002",
+  "date": "2026-02-08T19:00:00Z",
+  "turns": [
+    {
+      "speaker": "user",
+      "text": "Hey, long day. Just wanted to wind down and process a few things.",
+      "t_ms": 1770577200000
+    },
+    {
+      "speaker": "assistant",
+      "text": "Hey Alex, I'm here. How was your day? Take your time.",
+      "t_ms": 1770577204000
+    },
+    {
+      "speaker": "user",
+      "text": "So the good news — I crushed a ten K run this morning. Felt amazing. Knee was totally fine, which is huge. I'm thinking about pushing for twelve K tomorrow.",
+      "t_ms": 1770577220000
+    },
+    {
+      "speaker": "assistant",
+      "text": "Ten K with no knee issues — that's fantastic progress! You're really building up nicely toward the half-marathon. A twelve K tomorrow would be a big step.",
+      "t_ms": 1770577225000
+    },
+    {
+      "speaker": "user",
+      "text": "Yeah, the training plan says I should be around this distance by now so I'm right on track. Oh — Maya loved the workout gear I sent for her birthday. She texted a bunch of photos of her at the gym wearing it.",
+      "t_ms": 1770577242000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That's sweet! Sounds like you nailed the gift choice. How's work been this week?",
+      "t_ms": 1770577248000
+    },
+    {
+      "speaker": "user",
+      "text": "Honestly, it's been rough. I stayed past midnight twice this week prepping for the dashboard launch. The VP pulled the timeline forward by two weeks and everyone's scrambling. I told the team it's under control but... I don't know.",
+      "t_ms": 1770577268000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That sounds really stressful. Staying past midnight twice is a lot. How are you feeling about it?",
+      "t_ms": 1770577274000
+    },
+    {
+      "speaker": "user",
+      "text": "I mean, it is what it is. The launch is important for the company and for my promotion track. Jamie hasn't said anything but I can tell dinner alone two nights bothered them. I missed yoga both times too.",
+      "t_ms": 1770577292000
+    },
+    {
+      "speaker": "assistant",
+      "text": "It sounds like the work pressure is starting to affect other parts of your life — Jamie, your yoga routine. That's worth paying attention to, especially since you'd been making good progress on boundaries.",
+      "t_ms": 1770577298000
+    },
+    {
+      "speaker": "user",
+      "text": "Yeah... I know. Speaking of Jamie, their birthday is next Friday. I want to do something nice — maybe book a restaurant. Italian, something upscale. Any ideas?",
+      "t_ms": 1770577318000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That sounds lovely! There are some great Italian spots in the city. I can note that as an action — book a restaurant for Jamie's birthday dinner next Friday.",
+      "t_ms": 1770577324000
+    },
+    {
+      "speaker": "user",
+      "text": "Perfect. Also — Mom called today. She mentioned she's having minor surgery next month. Nothing serious, she says, but she sounded a little worried. I really need to get up to Sacramento before then.",
+      "t_ms": 1770577345000
+    },
+    {
+      "speaker": "assistant",
+      "text": "I hope she'll be okay. Visiting before the surgery would probably mean a lot to her, especially since it's been a while. Want me to flag that as a priority?",
+      "t_ms": 1770577350000
+    },
+    {
+      "speaker": "user",
+      "text": "Yeah, please. I keep saying I'll go and then something comes up. Oh, one more thing — I've been looking at engagement rings online during lunch breaks. Nothing serious yet, just browsing. The Barcelona proposal is really taking shape in my head.",
+      "t_ms": 1770577370000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That's exciting! The Spain trip is about four months away, so you have time to find something perfect. Your Spanish practice will make the moment even more special.",
+      "t_ms": 1770577376000
+    },
+    {
+      "speaker": "user",
+      "text": "Duolingo streak is at a hundred and forty-eight now. I'm thinking about booking an italki lesson to practice actual conversation. The app is great but I want to be able to speak naturally.",
+      "t_ms": 1770577395000
+    },
+    {
+      "speaker": "assistant",
+      "text": "That's a smart next step — real conversation practice would accelerate your progress. You've got a solid foundation with almost five months of daily practice.",
+      "t_ms": 1770577400000
+    },
+    {
+      "speaker": "user",
+      "text": "Thanks. I think I'll try to get to bed early tonight. Tomorrow's the twelve K attempt and I want to be rested. Night!",
+      "t_ms": 1770577418000
+    },
+    {
+      "speaker": "assistant",
+      "text": "Smart plan — rest is key for a good run. Good luck with the twelve K tomorrow! Sleep well, Alex.",
+      "t_ms": 1770577422000
+    }
+  ]
+}

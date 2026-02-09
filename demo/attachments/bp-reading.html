@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1.0">
+<title>Blood Pressure Reading</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  .monitor {
+    width: 320px;
+    background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5);
+    position: relative;
+  }
+  .brand {
+    text-align: center;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .screen {
+    background: #0a1628;
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 20px;
+  }
+  .label {
+    font-size: 11px;
+    color: #6b8ab5;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .reading-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .systolic {
+    font-size: 72px;
+    font-weight: 700;
+    color: #ff6b6b;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    line-height: 1;
+  }
+  .slash {
+    font-size: 36px;
+    color: #4a6a8a;
+    font-weight: 300;
+  }
+  .diastolic {
+    font-size: 72px;
+    font-weight: 700;
+    color: #ffa94d;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    line-height: 1;
+  }
+  .unit {
+    font-size: 14px;
+    color: #6b8ab5;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .divider {
+    height: 1px;
+    background: #1e3a5a;
+    margin: 12px 0;
+  }
+  .pulse-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pulse-label {
+    font-size: 11px;
+    color: #6b8ab5;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .pulse-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #69db7c;
+    font-family: 'SF Mono', 'Consolas', monospace;
+  }
+  .pulse-unit {
+    font-size: 12px;
+    color: #6b8ab5;
+  }
+  .status {
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .status.elevated {
+    background: rgba(255,107,107,0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(255,107,107,0.3);
+  }
+  .datetime {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+  <div class="monitor">
+    <div class="brand">Omron Healthcare</div>
+    <div class="screen">
+      <div class="label" style="text-align:center">Blood Pressure</div>
+      <div class="reading-row">
+        <span class="systolic">142</span>
+        <span class="slash">/</span>
+        <span class="diastolic">91</span>
+      </div>
+      <div class="unit">mmHg</div>
+      <div class="divider"></div>
+      <div class="pulse-row">
+        <div>
+          <div class="pulse-label">Pulse</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:4px">
+          <span class="pulse-value">78</span>
+          <span class="pulse-unit">bpm</span>
+        </div>
+      </div>
+    </div>
+    <div class="status elevated">Stage 1 Hypertension</div>
+    <div class="datetime">Feb 9, 2026 &mdash; 3:42 PM</div>
+  </div>
+</body>
+</html>

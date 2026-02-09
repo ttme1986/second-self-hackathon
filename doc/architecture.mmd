@@ -1,0 +1,189 @@
+%%{ init: { 'theme': 'base', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#4f46e5', 'lineColor': '#94a3b8', 'secondaryColor': '#1e1b4b', 'tertiaryColor': '#f1f5f9' } } }%%
+
+graph TB
+  subgraph USER["User Interface (Pages)"]
+    Login["Login.tsx"]
+    Hub["Hub.tsx"]
+    Chat["Chat.tsx"]
+    Reflect["Reflect.tsx"]
+    Settings["Settings.tsx"]
+  end
+
+  subgraph COMPONENTS["Key Components"]
+    ChatHeader["ChatHeader"]
+    ChatActionBar["ChatActionBar"]
+    ChatRecapModal["ChatRecapModal"]
+    ChatToolsDrawer["ChatToolsDrawer"]
+    CameraViewfinder["CameraViewfinder"]
+    PermSelector["PermissionSelector"]
+    TodaysFocus["TodaysFocus"]
+    InsightCard["InsightCard"]
+    GoalCard["GoalCard"]
+    GoalCheckIn["GoalCheckIn"]
+    EmotionIndicator["EmotionIndicator"]
+    EmotionTrend["EmotionTrend"]
+  end
+
+  subgraph HOOKS["React Hooks"]
+    useVoice["useVoiceSession"]
+    useTranscript["useTranscript"]
+    usePipeline["useBlackboardPipeline"]
+    useSuggested["useSuggestedActions"]
+    useEmotion["useEmotionalTracking"]
+    useAttach["useAttachments"]
+  end
+
+  subgraph AGENTS["Agent Pipeline (Blackboard Pattern)"]
+    BB["Blackboard\n(Task Queue + Event Bus)"]
+    Analyzer["AnalyzerAgent\nextractClaimsAndActions()\nthought signatures\nin-session dedup"]
+    Validator["ValidatorAgent\nembedText() + cosineSim\ndetectConflict()\nclaim merge / conflict"]
+    Publisher["ActionPublishAgent\nSurface to UI\nPersist via backend"]
+  end
+
+  subgraph SERVICES["Services"]
+    LiveAudio["liveAudioService\n(WebSocket + Chat API)"]
+    MemCtx["memoryContext\n(System Prompt Builder)"]
+    FocusGen["focusGenerator\n(Daily Focus + Insights)"]
+    EmotionTrack["emotionTracker\n(Trends + Wellness)"]
+    ActionExec["actionExecutor\n(Draft + Execute)"]
+    StorageUp["storageUpload\n(Transcripts + Photos)"]
+  end
+
+  subgraph DATA["Data Layer"]
+    Backend["backend.ts\n(API Facade ~1750 LOC)"]
+    LocalStore["localStore.ts\n(localStorage)"]
+    FSStore["firestoreStore.ts"]
+    FSSync["firestoreSync.ts"]
+    WriteGate["firestoreWriteGate\n(Deferred Writes)"]
+  end
+
+  subgraph PROVIDERS["Context Providers"]
+    AuthProv["AuthProvider\n(Google OAuth)"]
+    AuthGate["AuthGate"]
+    ProfileProv["ProfileProvider"]
+    OLProv["OpenLoopsProvider"]
+  end
+
+  subgraph LIB["Lib / Utilities"]
+    FirebaseLib["firebase.ts\n(SDK Init)"]
+    Analytics["analytics.ts"]
+    Evidence["evidence.ts"]
+    ReflectData["reflectData.ts"]
+  end
+
+  subgraph EXTERNAL["External Services"]
+    direction TB
+    GeminiLive["Gemini Live API\n(WebSocket bidiGenerateContent)\ngemini-2.5-flash-native-audio-preview-12-2025\nVoice: Kore | Transcription | VAD"]:::gemini
+    GeminiFlash["Gemini 3 Flash\n(REST generateContent)\ngemini-3-flash-preview\nThinking LOW/MED/HIGH | JSON Output\nCode Exec | Search | URL Context"]:::gemini
+    GeminiEmbed["Gemini Embedding\n(REST embedContent)\ngemini-embedding-001\n768-dim vectors"]:::gemini
+    FirebaseAuth["Firebase Auth\n(Google OAuth)"]:::firebase
+    Firestore["Cloud Firestore\nusers/{uid}/*"]:::firebase
+    FireStorage["Firebase Storage\nTranscripts / Photos / Media"]:::firebase
+  end
+
+  %% Page -> Component dependencies
+  Chat --> ChatHeader
+  Chat --> ChatActionBar
+  Chat --> ChatRecapModal
+  Chat --> ChatToolsDrawer
+  Chat --> CameraViewfinder
+  Chat --> PermSelector
+  Hub --> TodaysFocus
+  Hub --> InsightCard
+  Reflect --> GoalCard
+  Reflect --> GoalCheckIn
+  Reflect --> EmotionTrend
+
+  %% Page -> Hook dependencies
+  Chat --> useVoice
+  Chat --> useTranscript
+  Chat --> usePipeline
+  Chat --> useSuggested
+  Chat --> useEmotion
+  Chat --> useAttach
+  Hub --> FocusGen
+  Hub --> EmotionTrack
+
+  %% Hook -> Service dependencies
+  useVoice --> LiveAudio
+  useVoice --> MemCtx
+  useTranscript --> BB
+  usePipeline --> Analyzer
+  usePipeline --> Validator
+  usePipeline --> Publisher
+  useSuggested --> ActionExec
+  useEmotion --> Backend
+
+  %% Agent pipeline flow
+  BB -->|turn.ingest| Analyzer
+  Analyzer -->|claim.proposed\naction.proposed| BB
+  BB -->|claim.proposed\naction.proposed| Validator
+  Validator -->|action.validated| BB
+  BB -->|action.validated| Publisher
+
+  %% Agent -> Backend (Gemini calls)
+  Analyzer -->|extractClaimsAndActions\n(JSON + thinking LOW)| Backend
+  Validator -->|embedText + detectConflict\n(embeddings + thinking HIGH)| Backend
+  Publisher -->|createAction\nappendConversationAction| Backend
+
+  %% Service -> Backend
+  MemCtx --> Backend
+  FocusGen --> Backend
+  FocusGen --> EmotionTrack
+  EmotionTrack --> Backend
+  ActionExec --> Backend
+
+  %% Service -> Gemini (highlighted — thick blue lines)
+  LiveAudio ==>|"bidiGenerateContent\n(real-time audio + transcription)"| GeminiLive
+  LiveAudio ==>|"ai.chats.create + sendMessageStream\n(text-only fallback)"| GeminiFlash
+  Backend ==>|"extractClaimsAndActions\ndetectConflict (thinking HIGH)\ndetectEmotion (JSON schema)\nsummarizeTranscript\nconsolidateMemory (thinking LOW)\nanalyzeImage (code exec + thinking LOW)\ngenerateGoalMilestones (Search tool)\ngenerateCheckInResponse (thinking MED)"| GeminiFlash
+  Backend ==>|"embedText\nembedQuery\n(768-dim vectors)"| GeminiEmbed
+  ActionExec ==>|"generateActionDraft\n(Search + URL Context tools)"| GeminiFlash
+  FocusGen ==>|"generateTodaysFocus\ncomputeInsights\n(code execution tool)"| GeminiFlash
+
+  %% Data layer
+  Backend --> LocalStore
+  Backend --> FSStore
+  Backend --> WriteGate
+  FSStore --> WriteGate
+  FSStore --> FirebaseLib
+
+  %% Firebase connections
+  FSStore -->|"setDoc / updateDoc\narrayUnion"| Firestore
+  FSSync -->|"getDoc / getDocs"| Firestore
+  StorageUp -->|"uploadBytes"| FireStorage
+  AuthProv --> FirebaseAuth
+  AuthProv --> Backend
+
+  %% Auth flow
+  Login --> AuthProv
+  AuthGate --> AuthProv
+
+  %% Provider dependencies
+  ProfileProv --> Backend
+  OLProv --> Backend
+
+  %% Commit flow
+  Backend -->|"commitSessionToFirestore\n(writeBatch)"| Firestore
+
+  %% Styling
+  classDef gemini fill:#4285f4,stroke:#1a73e8,color:#fff,stroke-width:3px
+  classDef firebase fill:#ff9100,stroke:#e65100,color:#fff,stroke-width:2px
+  classDef page fill:#6366f1,stroke:#4f46e5,color:#fff
+  classDef hook fill:#8b5cf6,stroke:#7c3aed,color:#fff
+  classDef agent fill:#ec4899,stroke:#db2777,color:#fff
+  classDef service fill:#14b8a6,stroke:#0d9488,color:#fff
+  classDef data fill:#f59e0b,stroke:#d97706,color:#fff
+  classDef auth fill:#64748b,stroke:#475569,color:#fff
+  classDef component fill:#818cf8,stroke:#6366f1,color:#fff
+
+  class Login,Hub,Chat,Reflect,Settings page
+  class useVoice,useTranscript,usePipeline,useSuggested,useEmotion,useAttach hook
+  class BB,Analyzer,Validator,Publisher agent
+  class LiveAudio,MemCtx,FocusGen,EmotionTrack,ActionExec,StorageUp service
+  class Backend,LocalStore,FSStore,FSSync,WriteGate data
+  class AuthProv,AuthGate,ProfileProv,OLProv auth
+  class FirebaseLib,Analytics,Evidence,ReflectData auth
+  class ChatHeader,ChatActionBar,ChatRecapModal,ChatToolsDrawer,CameraViewfinder,PermSelector,TodaysFocus,InsightCard,GoalCard,GoalCheckIn,EmotionIndicator,EmotionTrend component
+
+  linkStyle 22,23,24,25,26,27,28,29,30,31 stroke:#4285f4,stroke-width:3px
