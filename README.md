@@ -1,14 +1,50 @@
 # Second-Self
 
-**An Autonomous Life Operating System powered by Gemini 3**
+**An Autonomous Life Operating System powered by Gemini 3** — A voice-first mobile web app that remembers everything, notices patterns you miss, and takes action with your permission.
+
+Built for the [Gemini 3 Hackathon](https://gemini3.devpost.com/).
+
+## Table of Contents
+
+- [About](#about)
+- [The Problem](#the-problem)
+- [Our Solution - Second-Self](#our-solution---second-self)
+- [Gemini Integration](#gemini-integration)
+- [Architecture](#architecture)
+- [Features](#features)
+- [Data Architecture](#data-architecture)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Documentation](#documentation)
+- [Acknowledgments](#acknowledgments)
+
+---
+
+## About
 
 Second-Self is a voice-first mobile web app that acts as your AI-powered personal memory and life management companion. It captures conversations through natural voice interaction, extracts knowledge in real-time, tracks goals, understands emotions, and takes action on your behalf — all with transparent evidence and user-controlled permissions.
 
-**Zero backend server** — the entire application runs client-side with direct Gemini API calls via `@google/genai`, making it deployable as a static site on Firebase Hosting.
+---
 
-## Live Demo
+## The Problem
 
-**[https://studio-893689625-b2f3e.web.app](https://studio-893689625-b2f3e.web.app)**
+We all have too much going on. Important commitments slip through the cracks — the dentist appointment we keep postponing, the friend we promised to call, the career goal we set in January that faded by February. Key barriers include:
+
+- **Information overload** — We process hundreds of conversations daily, but retain only a fraction of what matters
+- **Manual productivity tools** — Existing apps require constant manual input, creating more work instead of reducing it
+- **No memory continuity** — Context from past conversations is lost, leading to repeated questions and forgotten commitments
+- **Emotional blind spots** — We rarely notice our own stress patterns or mood trends until they become problems
+- **Action gap** — Good intentions discussed in conversation rarely translate into concrete follow-through
+
+---
+
+## Our Solution - Second-Self
+
+Second-Self addresses all of these by *listening* to your life and *acting* on it — a second self that remembers everything, notices patterns you miss, and takes action with your permission.
+
+**Live Demo: [https://studio-893689625-b2f3e.web.app](https://studio-893689625-b2f3e.web.app)**
 
 Sign in with Google or use the Demo account to explore with pre-populated data.
 
@@ -192,6 +228,34 @@ graph TB
 
 ---
 
+## Data Architecture
+
+### Deferred Write Pattern
+
+During active voice/chat sessions, **all Firestore writes are deferred**. localStorage is the sole source of truth during conversation. At recap close, the complete session state is batch-written to Firestore via `writeBatch`:
+
+```
+Session Active                          Recap Close
+    |                                       |
+    v                                       v
+localStorage only  ──────────────>  writeBatch to Firestore
+(claims, actions,                   (conversation, claims,
+ transcript, emotions)               actions, memorySummary,
+                                     review queue items)
+```
+
+This ensures zero data loss even if the browser closes mid-session (crash recovery detects uncommitted sessions on next app load).
+
+### Storage Layout
+
+| Store | Data |
+|-------|------|
+| localStorage | User profile, claims, goals, actions, conversations, review queue, embeddings |
+| Cloud Firestore | Persistent sync of all entities under `users/{uid}/` subcollections |
+| Firebase Storage | `users/{uid}/conversations/{id}/transcript.json`, attachments, photos |
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -201,7 +265,7 @@ graph TB
 | AI - Text | Gemini 3 Flash (`gemini-3-flash-preview`) |
 | AI - Vision | Gemini 3 Pro (`gemini-3-pro-preview`) |
 | AI - Embeddings | Gemini Embedding (`gemini-embedding-001`) |
-| AI SDK | `@google/genai` ^1.30.0 (client-side, no backend relay) |
+| AI SDK | `@google/genai` ^1.30.0 |
 | Auth | Firebase Authentication (Google OAuth) |
 | Database | localStorage (primary) + Cloud Firestore (persistent sync) |
 | Storage | Firebase Cloud Storage (transcripts, photos, attachments) |
@@ -251,60 +315,6 @@ See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed setup.
 
 ---
 
-## Testing
-
-```bash
-# Unit tests (18 test files)
-npm run test:unit
-
-# Integration tests (Gemini API, Firebase, backend utilities)
-npm run test:integration
-
-# E2E tests (Playwright - UI flows, navigation, components)
-npm run test:e2e
-
-# E2E user flow - text mode (15-turn conversation + recap + validation)
-npm run test:user-flow
-
-# E2E user flow - live audio mode (Gemini Live API with simulated microphone)
-npm run test:user-flow-live
-
-# E2E user flow - image attachment mode
-npm run test:user-flow-image
-```
-
-The user-flow tests run full 15-turn multi-session conversations with Gemini, validate knowledge extraction accuracy, and verify cross-session memory continuity — all automatically judged by Gemini itself.
-
----
-
-## Data Architecture
-
-### Deferred Write Pattern
-
-During active voice/chat sessions, **all Firestore writes are deferred**. localStorage is the sole source of truth during conversation. At recap close, the complete session state is batch-written to Firestore via `writeBatch`:
-
-```
-Session Active                          Recap Close
-    |                                       |
-    v                                       v
-localStorage only  ──────────────>  writeBatch to Firestore
-(claims, actions,                   (conversation, claims,
- transcript, emotions)               actions, memorySummary,
-                                     review queue items)
-```
-
-This ensures zero data loss even if the browser closes mid-session (crash recovery detects uncommitted sessions on next app load).
-
-### Storage Layout
-
-| Store | Data |
-|-------|------|
-| localStorage | User profile, claims, goals, actions, conversations, review queue, embeddings |
-| Cloud Firestore | Persistent sync of all entities under `users/{uid}/` subcollections |
-| Firebase Storage | `users/{uid}/conversations/{id}/transcript.json`, attachments, photos |
-
----
-
 ## Project Structure
 
 ```
@@ -345,6 +355,38 @@ second-self/
 
 ---
 
-## License
+## Testing
+
+```bash
+# Unit tests (18 test files)
+npm run test:unit
+
+# Integration tests (Gemini API, Firebase, backend utilities)
+npm run test:integration
+
+# E2E tests (Playwright - UI flows, navigation, components)
+npm run test:e2e
+
+# E2E user flow - text mode (15-turn conversation + recap + validation)
+npm run test:user-flow
+
+# E2E user flow - live audio mode (Gemini Live API with simulated microphone)
+npm run test:user-flow-live
+
+# E2E user flow - image attachment mode
+npm run test:user-flow-image
+```
+
+The user-flow tests run full 15-turn multi-session conversations with Gemini, validate knowledge extraction accuracy, and verify cross-session memory continuity — all automatically judged by Gemini itself.
+
+---
+
+## Documentation
+
+- [Technical Specification](SPEC.md) — Full implementation spec with data structures, agent details, and UI requirements
+- [Architecture Diagram](doc/infrastructure.png) — System architecture and component diagram
+- [Deployment Guide](DEPLOYMENT_GUIDE.md) — Firebase Hosting setup and configuration
+
+## Acknowledgments
 
 Built for the [Gemini 3 Hackathon](https://gemini3.devpost.com/)
