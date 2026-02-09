@@ -201,7 +201,8 @@ graph TB
   subgraph EXTERNAL["External Services"]
     direction TB
     GeminiLive["Gemini Live API&lt;br/&gt;bidiGenerateContent (WebSocket)&lt;br/&gt;gemini-2.5-flash-native-audio-preview-12-2025&lt;br/&gt;Voice: Kore | Transcription | VAD"]:::gemini
-    GeminiFlash["Gemini 3 Flash&lt;br/&gt;generateContent (REST)&lt;br/&gt;gemini-3-flash-preview&lt;br/&gt;Thinking LOW/MED/HIGH | JSON Output&lt;br/&gt;Code Exec | Search | URL Context"]:::gemini
+    GeminiPro["Gemini 3 Pro&lt;br/&gt;generateContent (REST)&lt;br/&gt;gemini-3-pro-preview&lt;br/&gt;Agentic Vision (primary)&lt;br/&gt;Code Exec | Thinking LOW"]:::gemini
+    GeminiFlash["Gemini 3 Flash&lt;br/&gt;generateContent (REST)&lt;br/&gt;gemini-3-flash-preview&lt;br/&gt;Thinking LOW/MED/HIGH | JSON Output&lt;br/&gt;Search | URL Context"]:::gemini
     GeminiEmbed["Gemini Embedding&lt;br/&gt;embedContent (REST)&lt;br/&gt;gemini-embedding-001&lt;br/&gt;768-dim vectors"]:::gemini
     FirebaseAuth["Firebase Auth&lt;br/&gt;Google OAuth"]:::firebase
     Firestore["Cloud Firestore&lt;br/&gt;users/uid/*"]:::firebase
@@ -245,7 +246,8 @@ graph TB
   %% Gemini connections (thick blue)
   LiveAudio ==>|bidiGenerateContent| GeminiLive
   LiveAudio ==>|ai.chats.create| GeminiFlash
-  Backend ==>|"extractClaims, detectConflict&lt;br/&gt;detectEmotion, summarize&lt;br/&gt;consolidateMemory, analyzeImage&lt;br/&gt;goalMilestones, checkInResponse"| GeminiFlash
+  Backend ==>|"analyzeImage&lt;br/&gt;(code exec + thinking LOW)"| GeminiPro
+  Backend ==>|"extractClaims, detectConflict&lt;br/&gt;detectEmotion, summarize&lt;br/&gt;consolidateMemory, analyzeImage (fallback)&lt;br/&gt;goalMilestones, checkInResponse"| GeminiFlash
   Backend ==>|"embedText, embedQuery"| GeminiEmbed
   ActionExec ==>|"generateDraft&lt;br/&gt;Search + URL tools"| GeminiFlash
   FocusGen ==>|"todaysFocus, insights&lt;br/&gt;code execution"| GeminiFlash
@@ -285,20 +287,21 @@ graph TB
   class AuthProv,ProfileProv,OLProv auth
   class FirebaseLib,Analytics,Evidence auth
 
-  linkStyle 32,33,34,35,36,37 stroke:#4285f4,stroke-width:3px
+  linkStyle 38,39,40,41,42,43,44 stroke:#4285f4,stroke-width:3px
     </pre>
   </div>
 
   <div class="gemini-note">
-    Thick blue lines indicate <strong>Gemini API integration points</strong>. All 3 models are used:
+    Thick blue lines indicate <strong>Gemini API integration points</strong>. All 4 models are used:
     <strong>gemini-2.5-flash-native-audio-preview-12-2025</strong> (Live voice),
+    <strong>gemini-3-pro-preview</strong> (agentic vision, primary),
     <strong>gemini-3-flash-preview</strong> (text generation, extraction, analysis),
     <strong>gemini-embedding-001</strong> (semantic search &amp; dedup)
   </div>
 
   <div class="stats">
     <div class="stat"><div class="stat-value">15+</div><div class="stat-label">Gemini Integration Points</div></div>
-    <div class="stat"><div class="stat-value">3</div><div class="stat-label">Gemini Models</div></div>
+    <div class="stat"><div class="stat-value">4</div><div class="stat-label">Gemini Models</div></div>
     <div class="stat"><div class="stat-value">3</div><div class="stat-label">Agent Pipeline Stages</div></div>
     <div class="stat"><div class="stat-value">6</div><div class="stat-label">React Hooks</div></div>
     <div class="stat"><div class="stat-value">6</div><div class="stat-label">Services</div></div>

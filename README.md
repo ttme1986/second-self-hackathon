@@ -16,11 +16,12 @@ Sign in with Google or use the Demo account to explore with pre-populated data.
 
 ## Gemini Integration
 
-Second-Self is built around **three Gemini models** working together across **15+ integration points**:
+Second-Self is built around **four Gemini models** working together across **15+ integration points**:
 
 | Model | Role | Integration Points |
 |-------|------|-------------------|
-| `gemini-3-flash-preview` | Text intelligence engine | Claim extraction, action detection, conflict detection, emotion analysis, transcript summarization, memory consolidation, image analysis (agentic vision), action draft generation, goal milestone generation, goal check-in coaching, daily focus prioritization, insight computation, text-only chat fallback |
+| `gemini-3-flash-preview` | Text intelligence engine | Claim extraction, action detection, conflict detection, emotion analysis, transcript summarization, memory consolidation, action draft generation, goal milestone generation, goal check-in coaching, daily focus prioritization, insight computation, text-only chat fallback, image analysis (vision fallback) |
+| `gemini-3-pro-preview` | Agentic vision (primary) | Image analysis with code execution, thinking mode, and high media resolution |
 | `gemini-2.5-flash-native-audio-preview-12-2025` | Real-time voice conversation | Live WebSocket audio I/O, server-side transcription, barge-in detection, voice activity detection |
 | `gemini-embedding-001` | Semantic understanding | Claim deduplication, action deduplication, conversation search, conversation embedding, similarity matching |
 
@@ -44,11 +45,12 @@ Second-Self is built around **three Gemini models** working together across **15
 
 ### Gemini Integration Architecture
 
-Every Gemini call flows through one of three paths:
+Every Gemini call flows through one of four paths:
 
 1. **Voice path**: `liveAudioService.ts` → Gemini Live API (`bidiGenerateContent` WebSocket) → real-time audio I/O with server-side transcription
 2. **Text intelligence path**: `backend.ts` → `generateText()` / `generateJson()` → Gemini 3 Flash REST API → structured extraction, analysis, and generation
-3. **Semantic path**: `backend.ts` → `embedText()` / `embedQuery()` → Gemini Embedding API → 768-dim vectors for similarity and search
+3. **Vision path**: `backend.ts` → `analyzeImage()` → Gemini 3 Pro REST API (primary) with Gemini 3 Flash fallback → agentic vision with code execution
+4. **Semantic path**: `backend.ts` → `embedText()` / `embedQuery()` → Gemini Embedding API → 768-dim vectors for similarity and search
 
 ---
 
@@ -93,7 +95,8 @@ graph TB
 
   LiveAudio ==>|"bidiGenerateContent<br>(real-time audio)"| GeminiLive["Gemini Live API<br>gemini-2.5-flash-native-audio"]:::gemini
   LiveAudio ==>|"ai.chats.create<br>(text fallback)"| GeminiFlash["Gemini 3 Flash<br>gemini-3-flash-preview"]:::gemini
-  Backend ==>|"extract, analyze<br>summarize, detect<br>consolidate, image"| GeminiFlash
+  Backend ==>|"analyzeImage<br>(primary, code exec)"| GeminiPro["Gemini 3 Pro<br>gemini-3-pro-preview"]:::gemini
+  Backend ==>|"extract, analyze<br>summarize, detect<br>consolidate, image fallback"| GeminiFlash
   Backend ==>|"embedText<br>embedQuery"| GeminiEmbed["Gemini Embedding<br>gemini-embedding-001"]:::gemini
   ActionExec ==>|"generateDraft<br>(Search + URL tools)"| GeminiFlash
   FocusGen ==>|"focus + insights<br>(code execution)"| GeminiFlash
@@ -149,7 +152,7 @@ graph TB
 - Emotional state tracking: joy, sadness, anger, fear, surprise, stress, calm, neutral
 - Valence (-1 to 1), intensity (0 to 1), and confidence scoring
 - Longitudinal trend analysis (dominant emotion, mood arc, weekly patterns) and wellness suggestions
-- Emotional summary in session recaps with conversation arc visualization (improving/stable/declining)
+- Emotional summary in session recaps with conversation arc visualization
 
 ### Goal & Accountability
 - Goal creation with AI-suggested milestones (powered by **Gemini 3 Flash** with **Google Search** tool)
@@ -177,8 +180,9 @@ graph TB
 ### Image Analysis (Agentic Vision)
 - Photo capture with live camera viewfinder
 - File attachment support for documents and images
-- **Gemini 3 Flash** with **code execution** tool, **thinking mode LOW**, and **high media resolution** for intelligent extraction from photos (receipts, schedules, charts, documents, business cards)
-- Agentic Think/Act/Observe pattern with automatic retry (3 attempts with exponential backoff)
+- **Gemini 3 Pro** (primary) with **code execution** tool, **thinking mode LOW**, and **high media resolution** for intelligent extraction from photos (receipts, schedules, charts, documents, business cards)
+- Multi-model fallback: **Gemini 3 Flash** as backup, each with 4 retries and exponential backoff with jitter
+- Agentic Think/Act/Observe pattern with automatic retry
 
 ### Review Queue (Conflict Resolution)
 - AI-detected claim conflicts surfaced with severity badges (low/medium/high)
@@ -195,6 +199,7 @@ graph TB
 | Frontend | React 19 + TypeScript + Vite |
 | AI - Voice | Gemini Live API (`gemini-2.5-flash-native-audio-preview-12-2025`) |
 | AI - Text | Gemini 3 Flash (`gemini-3-flash-preview`) |
+| AI - Vision | Gemini 3 Pro (`gemini-3-pro-preview`) |
 | AI - Embeddings | Gemini Embedding (`gemini-embedding-001`) |
 | AI SDK | `@google/genai` ^1.30.0 (client-side, no backend relay) |
 | Auth | Firebase Authentication (Google OAuth) |
@@ -249,7 +254,7 @@ See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed setup.
 ## Testing
 
 ```bash
-# Unit tests (44 test files)
+# Unit tests (18 test files)
 npm run test:unit
 
 # Integration tests (Gemini API, Firebase, backend utilities)
@@ -258,7 +263,7 @@ npm run test:integration
 # E2E tests (Playwright - UI flows, navigation, components)
 npm run test:e2e
 
-# E2E user flow - text mode (10-turn conversation + recap + validation)
+# E2E user flow - text mode (15-turn conversation + recap + validation)
 npm run test:user-flow
 
 # E2E user flow - live audio mode (Gemini Live API with simulated microphone)
@@ -269,6 +274,34 @@ npm run test:user-flow-image
 ```
 
 The user-flow tests run full 15-turn multi-session conversations with Gemini, validate knowledge extraction accuracy, and verify cross-session memory continuity — all automatically judged by Gemini itself.
+
+---
+
+## Data Architecture
+
+### Deferred Write Pattern
+
+During active voice/chat sessions, **all Firestore writes are deferred**. localStorage is the sole source of truth during conversation. At recap close, the complete session state is batch-written to Firestore via `writeBatch`:
+
+```
+Session Active                          Recap Close
+    |                                       |
+    v                                       v
+localStorage only  ──────────────>  writeBatch to Firestore
+(claims, actions,                   (conversation, claims,
+ transcript, emotions)               actions, memorySummary,
+                                     review queue items)
+```
+
+This ensures zero data loss even if the browser closes mid-session (crash recovery detects uncommitted sessions on next app load).
+
+### Storage Layout
+
+| Store | Data |
+|-------|------|
+| localStorage | User profile, claims, goals, actions, conversations, review queue, embeddings |
+| Cloud Firestore | Persistent sync of all entities under `users/{uid}/` subcollections |
+| Firebase Storage | `users/{uid}/conversations/{id}/transcript.json`, attachments, photos |
 
 ---
 
@@ -301,7 +334,7 @@ second-self/
       push-demo-data.ts    # Populate Firestore with demo data
       delete-demo-data.ts  # Clean Firestore demo data
     tests/
-      unit/            # 44 test files (components, agents, services, backend)
+      unit/            # 18 test files (agents, services, backend)
       integration/     # 6 test files (Gemini API, Firebase, backend utilities)
       e2e/             # 10 spec files (UI flows, navigation, reflect, settings)
       other/           # 3 user-flow specs (text, audio, image)
@@ -309,34 +342,6 @@ second-self/
   doc/                 # Architecture diagrams (Mermaid, draw.io)
   firebase/            # Firestore rules, Storage rules
 ```
-
----
-
-## Data Architecture
-
-### Deferred Write Pattern
-
-During active voice/chat sessions, **all Firestore writes are deferred**. localStorage is the sole source of truth during conversation. At recap close, the complete session state is batch-written to Firestore via `writeBatch`:
-
-```
-Session Active                          Recap Close
-    |                                       |
-    v                                       v
-localStorage only  ──────────────>  writeBatch to Firestore
-(claims, actions,                   (conversation, claims,
- transcript, emotions)               actions, memorySummary,
-                                     review queue items)
-```
-
-This ensures zero data loss even if the browser closes mid-session (crash recovery detects uncommitted sessions on next app load).
-
-### Storage Layout
-
-| Store | Data |
-|-------|------|
-| localStorage | User profile, claims, goals, actions, conversations, review queue, embeddings |
-| Cloud Firestore | Persistent sync of all entities under `users/{uid}/` subcollections |
-| Firebase Storage | `users/{uid}/conversations/{id}/transcript.json`, attachments, photos |
 
 ---
 

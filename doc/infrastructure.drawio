@@ -1,21 +1,35 @@
 <mxfile host="app.diagrams.net" modified="2026-02-10" agent="Second-Self" version="24.0.0">
   <diagram id="second-self-infra" name="System Infrastructure">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="1800" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1400" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
         <!-- ===== TITLE ===== -->
         <mxCell id="title" value="Second-Self System Infrastructure" style="text;html=1;fontSize=24;fontStyle=1;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#1e293b;" vertex="1" parent="1">
-          <mxGeometry x="400" y="10" width="800" height="40" as="geometry" />
+          <mxGeometry x="450" y="10" width="900" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="subtitle" value="Autonomous Life Operating System — Gemini 3 Hackathon" style="text;html=1;fontSize=12;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#64748b;" vertex="1" parent="1">
-          <mxGeometry x="400" y="45" width="800" height="20" as="geometry" />
+        <mxCell id="subtitle" value="Autonomous Life Operating System — 4 Gemini Models, 15+ Integration Points, Zero Backend Server" style="text;html=1;fontSize=12;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="350" y="45" width="1100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ===== LEGEND ===== -->
+        <mxCell id="legend-pages" value="Pages" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6366f1;fontColor=#fff;strokeColor=#4f46e5;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="80" y="48" width="55" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-hooks" value="Hooks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8b5cf6;fontColor=#fff;strokeColor=#7c3aed;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="142" y="48" width="55" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-agents" value="Agents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ec4899;fontColor=#fff;strokeColor=#db2777;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="204" y="48" width="55" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-services" value="Services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="266" y="48" width="60" height="18" as="geometry" />
         </mxCell>
 
         <!-- ===== USER / BROWSER ===== -->
         <mxCell id="browser-group" value="Browser (Client-Side — Zero Backend Server)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;arcSize=8;" vertex="1" parent="1">
-          <mxGeometry x="80" y="80" width="1440" height="710" as="geometry" />
+          <mxGeometry x="80" y="80" width="1640" height="690" as="geometry" />
         </mxCell>
 
         <!-- UI Layer -->
@@ -80,100 +94,123 @@
 
         <!-- Services -->
         <mxCell id="svc-group" value="Services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#0d9488;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
-          <mxGeometry x="860" y="120" width="620" height="280" as="geometry" />
+          <mxGeometry x="860" y="120" width="820" height="280" as="geometry" />
         </mxCell>
         <mxCell id="liveAudio" value="liveAudioService&#xa;(WebSocket + Chat API)&#xa;Voice: Kore | 16kHz/24kHz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
-          <mxGeometry x="880" y="155" width="160" height="55" as="geometry" />
+          <mxGeometry x="880" y="155" width="170" height="55" as="geometry" />
         </mxCell>
         <mxCell id="memCtx" value="memoryContext&#xa;(System Prompt Builder)&#xa;Claims+Goals+Actions+Memory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
-          <mxGeometry x="1060" y="155" width="160" height="55" as="geometry" />
+          <mxGeometry x="1070" y="155" width="170" height="55" as="geometry" />
         </mxCell>
         <mxCell id="focusGen" value="focusGenerator&#xa;(Daily Focus + Insights)&#xa;code execution tool" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
-          <mxGeometry x="1240" y="155" width="160" height="55" as="geometry" />
+          <mxGeometry x="1260" y="155" width="170" height="55" as="geometry" />
         </mxCell>
         <mxCell id="actionExec" value="actionExecutor&#xa;(Draft + Execute)&#xa;Search + URL Context tools" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
-          <mxGeometry x="880" y="235" width="160" height="55" as="geometry" />
+          <mxGeometry x="880" y="235" width="170" height="55" as="geometry" />
         </mxCell>
         <mxCell id="emotionTrack" value="emotionTracker&#xa;(Trends + Wellness)&#xa;Longitudinal Analysis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
-          <mxGeometry x="1060" y="235" width="160" height="55" as="geometry" />
+          <mxGeometry x="1070" y="235" width="170" height="55" as="geometry" />
         </mxCell>
         <mxCell id="storageUp" value="storageUpload&#xa;(Transcripts + Photos)&#xa;Firebase Cloud Storage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
-          <mxGeometry x="1240" y="235" width="160" height="55" as="geometry" />
+          <mxGeometry x="1260" y="235" width="170" height="55" as="geometry" />
         </mxCell>
         <mxCell id="convRealtime" value="conversationRealtime&#xa;(InferredClaim type)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14b8a6;fontColor=#fff;strokeColor=#0d9488;fontSize=9;" vertex="1" parent="1">
-          <mxGeometry x="880" y="315" width="160" height="40" as="geometry" />
+          <mxGeometry x="1460" y="155" width="170" height="45" as="geometry" />
         </mxCell>
 
         <!-- Context Providers -->
         <mxCell id="prov-group" value="Context Providers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
-          <mxGeometry x="1060" y="400" width="360" height="100" as="geometry" />
+          <mxGeometry x="860" y="420" width="520" height="100" as="geometry" />
         </mxCell>
         <mxCell id="authProv" value="AuthProvider&#xa;(Google OAuth)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#64748b;fontColor=#fff;strokeColor=#475569;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="430" width="100" height="50" as="geometry" />
+          <mxGeometry x="880" y="452" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="authGate" value="AuthGate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#64748b;fontColor=#fff;strokeColor=#475569;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1005" y="452" width="90" height="50" as="geometry" />
         </mxCell>
         <mxCell id="profileProv" value="ProfileProvider&#xa;(React Context)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#64748b;fontColor=#fff;strokeColor=#475569;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1200" y="430" width="100" height="50" as="geometry" />
+          <mxGeometry x="1110" y="452" width="110" height="50" as="geometry" />
         </mxCell>
         <mxCell id="olProv" value="OpenLoops&#xa;Provider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#64748b;fontColor=#fff;strokeColor=#475569;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1320" y="430" width="80" height="50" as="geometry" />
+          <mxGeometry x="1235" y="452" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Lib / Utilities -->
+        <mxCell id="lib-group" value="Lib / Utilities" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#94a3b8;fontSize=11;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="420" width="280" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="reflectData" value="reflectData.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#94a3b8;fontColor=#fff;strokeColor=#64748b;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1425" y="455" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="analytics" value="analytics.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#94a3b8;fontColor=#fff;strokeColor=#64748b;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1515" y="455" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="evidence" value="evidence.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#94a3b8;fontColor=#fff;strokeColor=#64748b;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1605" y="455" width="75" height="40" as="geometry" />
         </mxCell>
 
         <!-- Data Layer -->
         <mxCell id="data-group" value="Data Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
-          <mxGeometry x="120" y="530" width="1360" height="110" as="geometry" />
+          <mxGeometry x="120" y="540" width="1560" height="110" as="geometry" />
         </mxCell>
         <mxCell id="backend" value="backend.ts&#xa;(API Facade ~1750 LOC)&#xa;15+ Gemini integration points" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="140" y="565" width="220" height="55" as="geometry" />
+          <mxGeometry x="140" y="575" width="220" height="55" as="geometry" />
         </mxCell>
         <mxCell id="localStore" value="localStore.ts&#xa;(localStorage)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="390" y="565" width="140" height="55" as="geometry" />
+          <mxGeometry x="390" y="575" width="140" height="55" as="geometry" />
         </mxCell>
         <mxCell id="fsStore" value="firestoreStore.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="560" y="565" width="140" height="55" as="geometry" />
+          <mxGeometry x="560" y="575" width="140" height="55" as="geometry" />
         </mxCell>
         <mxCell id="fsSync" value="firestoreSync.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="730" y="565" width="140" height="55" as="geometry" />
+          <mxGeometry x="730" y="575" width="140" height="55" as="geometry" />
         </mxCell>
         <mxCell id="writeGate" value="firestoreWriteGate&#xa;(Deferred Writes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="900" y="565" width="140" height="55" as="geometry" />
+          <mxGeometry x="900" y="575" width="150" height="55" as="geometry" />
         </mxCell>
         <mxCell id="firebaseLib" value="firebase.ts&#xa;(SDK Init)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1070" y="565" width="120" height="55" as="geometry" />
+          <mxGeometry x="1080" y="575" width="120" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="analytics" value="analytics.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1220" y="565" width="100" height="55" as="geometry" />
-        </mxCell>
-        <mxCell id="evidence" value="evidence.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1350" y="565" width="100" height="55" as="geometry" />
+        <mxCell id="demoSeed" value="demoSeed.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;fontColor=#fff;strokeColor=#d97706;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="575" width="110" height="55" as="geometry" />
         </mxCell>
 
         <!-- ===== EXTERNAL: GEMINI ===== -->
-        <mxCell id="gemini-group" value="Google Gemini API (3 Models, 15+ Integration Points)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#4285f4;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;strokeWidth=3;" vertex="1" parent="1">
-          <mxGeometry x="80" y="840" width="760" height="160" as="geometry" />
+        <mxCell id="gemini-group" value="Google Gemini API (4 Models, 15+ Integration Points)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#4285f4;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="80" y="830" width="960" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="geminiLive" value="gemini-2.5-flash&#xa;-native-audio-preview-12-2025&#xa;(Live WebSocket bidiGenerateContent)&#xa;Voice: Kore | Transcription | VAD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4285f4;fontColor=#fff;strokeColor=#1a73e8;fontSize=10;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="100" y="875" width="210" height="100" as="geometry" />
+        <mxCell id="geminiLive" value="gemini-2.5-flash&#xa;-native-audio-preview&#xa;-12-2025&#xa;Live WebSocket&#xa;bidiGenerateContent&#xa;Voice: Kore | VAD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4285f4;fontColor=#fff;strokeColor=#1a73e8;fontSize=9;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="870" width="190" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="geminiFlash" value="gemini-3-flash-preview&#xa;(REST generateContent)&#xa;Thinking LOW/MED/HIGH | JSON Output&#xa;Code Exec | Search | URL Context&#xa;Thought Signatures | Media Resolution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4285f4;fontColor=#fff;strokeColor=#1a73e8;fontSize=10;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="340" y="875" width="230" height="100" as="geometry" />
+        <mxCell id="geminiPro" value="gemini-3-pro-preview&#xa;REST generateContent&#xa;Agentic Vision (primary)&#xa;Code Exec | Thinking LOW&#xa;High Media Resolution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4285f4;fontColor=#fff;strokeColor=#1a73e8;fontSize=9;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="310" y="870" width="200" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="geminiEmbed" value="gemini-embedding-001&#xa;(REST embedContent)&#xa;768-dim vectors&#xa;Semantic Search &amp; Deduplication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4285f4;fontColor=#fff;strokeColor=#1a73e8;fontSize=10;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="600" y="875" width="210" height="100" as="geometry" />
+        <mxCell id="geminiFlash" value="gemini-3-flash-preview&#xa;REST generateContent&#xa;Thinking LOW/MED/HIGH&#xa;JSON Output | Search&#xa;URL Context | Thought Signatures&#xa;Vision Fallback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4285f4;fontColor=#fff;strokeColor=#1a73e8;fontSize=9;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="530" y="870" width="210" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="geminiEmbed" value="gemini-embedding-001&#xa;REST embedContent&#xa;768-dim vectors&#xa;Semantic Search&#xa;&amp; Deduplication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4285f4;fontColor=#fff;strokeColor=#1a73e8;fontSize=9;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="760" y="870" width="200" height="110" as="geometry" />
         </mxCell>
 
         <!-- ===== EXTERNAL: FIREBASE ===== -->
         <mxCell id="firebase-group" value="Firebase (Google Cloud)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ff9100;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="900" y="840" width="580" height="160" as="geometry" />
+          <mxGeometry x="1080" y="830" width="640" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="fbAuth" value="Firebase Auth&#xa;(Google Sign-In)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9100;fontColor=#fff;strokeColor=#e65100;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="920" y="885" width="150" height="70" as="geometry" />
+        <mxCell id="fbAuth" value="Firebase Auth&#xa;(Google Sign-In)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9100;fontColor=#fff;strokeColor=#e65100;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="875" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="fbFirestore" value="Cloud Firestore&#xa;users/{uid}/*&#xa;(Deferred writeBatch)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9100;fontColor=#fff;strokeColor=#e65100;fontSize=10;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1100" y="885" width="150" height="70" as="geometry" />
+        <mxCell id="fbFirestore" value="Cloud Firestore&#xa;users/{uid}/*&#xa;Deferred writeBatch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9100;fontColor=#fff;strokeColor=#e65100;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="875" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="fbStorage" value="Firebase Storage&#xa;users/{uid}/conversations/&#xa;transcript.json + media" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9100;fontColor=#fff;strokeColor=#e65100;fontSize=10;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1280" y="885" width="170" height="70" as="geometry" />
+        <mxCell id="fbStorage" value="Firebase Storage&#xa;users/{uid}/conversations/&#xa;transcript.json + media" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9100;fontColor=#fff;strokeColor=#e65100;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="875" width="150" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="fbHosting" value="Firebase Hosting&#xa;(Static Site)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9100;fontColor=#fff;strokeColor=#e65100;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1580" y="875" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Multi-model fallback arrow ===== -->
+        <mxCell id="fallback" value="fallback (4 retries&#xa;+ exponential backoff)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1a73e8;strokeWidth=2;fontColor=#1a73e8;fontSize=8;dashed=1;dashPattern=8 4;" edge="1" source="geminiPro" target="geminiFlash" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
 
         <!-- ===== CONNECTIONS ===== -->
 
@@ -218,7 +255,8 @@
         <!-- ===== GEMINI CONNECTIONS (thick blue) ===== -->
         <mxCell id="g1" value="bidiGenerateContent&#xa;(real-time audio + transcription)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=9;fontStyle=1;" edge="1" source="liveAudio" target="geminiLive" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="g2" value="ai.chats.create + sendMessageStream&#xa;(text-only fallback)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=9;fontStyle=1;" edge="1" source="liveAudio" target="geminiFlash" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="g3" value="extractClaimsAndActions (thinking LOW)&#xa;detectConflict (thinking HIGH)&#xa;detectEmotion (JSON schema)&#xa;summarizeTranscript, consolidateMemory&#xa;analyzeImage (code exec), goalMilestones&#xa;checkInResponse (thinking MED)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=8;fontStyle=1;" edge="1" source="backend" target="geminiFlash" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="g2b" value="analyzeImage (primary)&#xa;code exec + thinking LOW&#xa;high media resolution" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=8;fontStyle=1;" edge="1" source="backend" target="geminiPro" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="g3" value="extractClaimsAndActions (thinking LOW)&#xa;detectConflict (thinking HIGH)&#xa;detectEmotion (JSON schema)&#xa;summarizeTranscript&#xa;consolidateMemory (thinking LOW)&#xa;analyzeImage (vision fallback)&#xa;goalMilestones (Search tool)&#xa;checkInResponse (thinking MED)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=8;fontStyle=1;" edge="1" source="backend" target="geminiFlash" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="g4" value="embedText, embedQuery&#xa;(768-dim vectors)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=9;fontStyle=1;" edge="1" source="backend" target="geminiEmbed" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="g5" value="generateActionDraft&#xa;(Search + URL Context tools)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=9;fontStyle=1;" edge="1" source="actionExec" target="geminiFlash" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="g6" value="todaysFocus, computeInsights&#xa;(code execution tool)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#4285f4;strokeWidth=3;fontColor=#4285f4;fontSize=9;fontStyle=1;" edge="1" source="focusGen" target="geminiFlash" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
@@ -240,6 +278,11 @@
         <!-- Provider -> Backend -->
         <mxCell id="e25" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#94a3b8;" edge="1" source="profileProv" target="backend" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e26" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#94a3b8;" edge="1" source="authProv" target="backend" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e27" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#94a3b8;" edge="1" source="olProv" target="backend" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#94a3b8;" edge="1" source="authGate" target="authProv" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Browser -> Hosting -->
+        <mxCell id="f6" value="Static deploy" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#ff9100;strokeWidth=2;fontColor=#e65100;fontSize=9;dashed=1;dashPattern=8 4;" edge="1" source="browser-group" target="fbHosting" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
 
       </root>
     </mxGraphModel>

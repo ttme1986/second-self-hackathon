@@ -43,7 +43,7 @@ const ROOT_DIR = path.resolve(APP_DIR, '..')
 
 const BASE_URL = process.env.DEMO_BASE_URL ?? 'http://127.0.0.1:4174'
 const PORT = 4174
-const VIEWPORT = { width: 390, height: 844 }
+const VIEWPORT = { width: 780, height: 1688 }
 const DEMO_OUTPUT_DIR = path.join(APP_DIR, 'demo-output')
 const BP_HTML = path.join(ROOT_DIR, 'demo', 'attachments', 'bp-reading.html')
 const BP_PNG = path.join(ROOT_DIR, 'demo', 'attachments', 'bp-reading.png')
@@ -325,11 +325,11 @@ const NARRATION_TEXTS = {
   hub:
     "You start at the Hub — your intelligent dashboard. " +
     "Personalized daily focus, wellness alerts, action reminders — all surfaced before you ask. " +
-    "Let's start with a chat.",
+    "Let's start with a chat. You are about to see three Gemini models working together — live",
 
   // Chat setup (unused during chat — kept for reference)
   chatSetup:
-    "You are seeing three Gemini models working together.",
+    "",
 
   // 5 user simulation turns (spoken as the user)
   chatUser1:
@@ -1082,7 +1082,7 @@ async function chatSegment(page) {
   await page.goto(BASE_URL + '/chat')
   await page.waitForLoadState('domcontentloaded')
   await waitForFonts(page)
-  await speak(page, NARRATION_TEXTS.chatSetup, 1.05)
+  //await speak(page, NARRATION_TEXTS.chatSetup, 1.05)
 
   // 2. Click mic to start Live API session
   const micBtn = page.locator('button[aria-label="Microphone"]')
@@ -1172,7 +1172,7 @@ async function chatSegment(page) {
     //    so a single idle detection isn't enough — we need sustained silence.
     {
       let silentSince = Date.now()
-      const silenceRequired = 4000  // 4s of continuous silence
+      const silenceRequired = 2000  // 2s of continuous silence
       const deadline = Date.now() + 45000
       while (Date.now() < deadline) {
         const isIdle = await page.evaluate(() => {
@@ -1429,7 +1429,7 @@ async function closeSegment(page) {
 
     const stats = document.createElement('div')
     stats.style.cssText = 'color:#aaa;font-size:14px;letter-spacing:2px;margin-bottom:32px;text-align:center;'
-    stats.textContent = '3 Gemini Models  |  12 Integration Points'
+    stats.textContent = 'Powered by Gemini'
     overlay.appendChild(stats)
 
     const title = document.createElement('div')
@@ -1499,26 +1499,14 @@ async function mergeVideoAudio(videoPath) {
   const filterParts = []
   let inputIdx = 1 // 0 is the video
 
-  // Count valid audio inputs first so we know N for volume boost
   const validNarration = audioTimeline.filter(e => existsSync(e.file) && statSync(e.file).size > 44)
   const hasChatAudio = chatAudioFile && existsSync(chatAudioFile) && statSync(chatAudioFile).size > 44
-  const totalAudioInputs = validNarration.length + (hasChatAudio ? 1 : 0)
-  // volume=N perfectly compensates amix's 1/N averaging (net 1×).
-  // Use N/2 for a comfortable listening level (net 0.5×, i.e. −6 dB).
-  const boost = totalAudioInputs / 2
 
   // Add narration WAV inputs (validate each file is a real WAV > 44 bytes header)
-  // Pre-boost each input to compensate for amix's inherent 1/N averaging
-  // across active inputs.  Without this, audio is nearly inaudible.
   for (const entry of validNarration) {
     inputs.push('-i', entry.file)
     const delayMs = Math.max(0, Math.round(entry.offsetMs))
-    // Apply volume boost, playback rate via atempo, then delay
-    if (entry.rate !== 1.0) {
-      filterParts.push(`[${inputIdx}:a]volume=${boost},atempo=${entry.rate},adelay=${delayMs}|${delayMs}[a${inputIdx}]`)
-    } else {
-      filterParts.push(`[${inputIdx}:a]volume=${boost},adelay=${delayMs}|${delayMs}[a${inputIdx}]`)
-    }
+    filterParts.push(`[${inputIdx}:a]volume=1,adelay=${delayMs}|${delayMs}[a${inputIdx}]`)
     inputIdx++
   }
 
@@ -1526,7 +1514,7 @@ async function mergeVideoAudio(videoPath) {
   if (hasChatAudio) {
     inputs.push('-i', chatAudioFile)
     const delayMs = Math.max(0, Math.round(chatAudioOffsetMs))
-    filterParts.push(`[${inputIdx}:a]volume=${boost},adelay=${delayMs}|${delayMs}[a${inputIdx}]`)
+    filterParts.push(`[${inputIdx}:a]volume=1,adelay=${delayMs}|${delayMs}[a${inputIdx}]`)
     inputIdx++
   }
 
@@ -1539,11 +1527,8 @@ async function mergeVideoAudio(videoPath) {
   }
 
   const numAudioInputs = inputIdx - 1
-  // Each input was pre-boosted by volume=N, so amix's inherent 1/N averaging
-  // brings them back to their original level.  normalize=0 prevents amix from
-  // further adjusting levels when inputs drop out.
   const audioLabels = Array.from({ length: numAudioInputs }, (_, i) => `[a${i + 1}]`).join('')
-  filterParts.push(`${audioLabels}amix=inputs=${numAudioInputs}:duration=longest:dropout_transition=0:normalize=0[aout]`)
+  filterParts.push(`${audioLabels}amix=inputs=${numAudioInputs}:duration=longest:normalize=0[aout]`)
 
   const filterComplex = filterParts.join(';')
   const finalPath = path.join(DEMO_OUTPUT_DIR, 'final-demo.webm')
@@ -1580,21 +1565,16 @@ async function mergeVideoAudio(videoPath) {
         const retryParts = []
         let retryIdx = 1
         const retryValid = audioTimeline.filter(e => existsSync(e.file) && statSync(e.file).size > 44)
-        const retryBoost = retryValid.length / 2
         for (const entry of retryValid) {
           retryInputs.push('-i', entry.file)
           const delayMs = Math.max(0, Math.round(entry.offsetMs))
-          if (entry.rate !== 1.0) {
-            retryParts.push(`[${retryIdx}:a]volume=${retryBoost},atempo=${entry.rate},adelay=${delayMs}|${delayMs}[a${retryIdx}]`)
-          } else {
-            retryParts.push(`[${retryIdx}:a]volume=${retryBoost},adelay=${delayMs}|${delayMs}[a${retryIdx}]`)
-          }
+          retryParts.push(`[${retryIdx}:a]volume=1,adelay=${delayMs}|${delayMs}[a${retryIdx}]`)
           retryIdx++
         }
         if (retryParts.length > 0) {
           const retryNum = retryIdx - 1
           const retryLabels = Array.from({ length: retryNum }, (_, i) => `[a${i + 1}]`).join('')
-          retryParts.push(`${retryLabels}amix=inputs=${retryNum}:duration=longest:dropout_transition=0:normalize=0[aout]`)
+          retryParts.push(`${retryLabels}amix=inputs=${retryNum}:duration=longest:normalize=0[aout]`)
           const retryArgs = [
             ...retryInputs,
             '-filter_complex', retryParts.join(';'),

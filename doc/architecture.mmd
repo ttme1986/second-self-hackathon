@@ -74,7 +74,8 @@ graph TB
   subgraph EXTERNAL["External Services"]
     direction TB
     GeminiLive["Gemini Live API\n(WebSocket bidiGenerateContent)\ngemini-2.5-flash-native-audio-preview-12-2025\nVoice: Kore | Transcription | VAD"]:::gemini
-    GeminiFlash["Gemini 3 Flash\n(REST generateContent)\ngemini-3-flash-preview\nThinking LOW/MED/HIGH | JSON Output\nCode Exec | Search | URL Context"]:::gemini
+    GeminiPro["Gemini 3 Pro\n(REST generateContent)\ngemini-3-pro-preview\nAgentic Vision (primary)\nCode Exec | Thinking LOW"]:::gemini
+    GeminiFlash["Gemini 3 Flash\n(REST generateContent)\ngemini-3-flash-preview\nThinking LOW/MED/HIGH | JSON Output\nSearch | URL Context"]:::gemini
     GeminiEmbed["Gemini Embedding\n(REST embedContent)\ngemini-embedding-001\n768-dim vectors"]:::gemini
     FirebaseAuth["Firebase Auth\n(Google OAuth)"]:::firebase
     Firestore["Cloud Firestore\nusers/{uid}/*"]:::firebase
@@ -136,7 +137,8 @@ graph TB
   %% Service -> Gemini (highlighted — thick blue lines)
   LiveAudio ==>|"bidiGenerateContent\n(real-time audio + transcription)"| GeminiLive
   LiveAudio ==>|"ai.chats.create + sendMessageStream\n(text-only fallback)"| GeminiFlash
-  Backend ==>|"extractClaimsAndActions\ndetectConflict (thinking HIGH)\ndetectEmotion (JSON schema)\nsummarizeTranscript\nconsolidateMemory (thinking LOW)\nanalyzeImage (code exec + thinking LOW)\ngenerateGoalMilestones (Search tool)\ngenerateCheckInResponse (thinking MED)"| GeminiFlash
+  Backend ==>|"analyzeImage\n(code exec + thinking LOW)"| GeminiPro
+  Backend ==>|"extractClaimsAndActions\ndetectConflict (thinking HIGH)\ndetectEmotion (JSON schema)\nsummarizeTranscript\nconsolidateMemory (thinking LOW)\nanalyzeImage (vision fallback)\ngenerateGoalMilestones (Search tool)\ngenerateCheckInResponse (thinking MED)"| GeminiFlash
   Backend ==>|"embedText\nembedQuery\n(768-dim vectors)"| GeminiEmbed
   ActionExec ==>|"generateActionDraft\n(Search + URL Context tools)"| GeminiFlash
   FocusGen ==>|"generateTodaysFocus\ncomputeInsights\n(code execution tool)"| GeminiFlash
@@ -186,4 +188,4 @@ graph TB
   class FirebaseLib,Analytics,Evidence,ReflectData auth
   class ChatHeader,ChatActionBar,ChatRecapModal,ChatToolsDrawer,CameraViewfinder,PermSelector,TodaysFocus,InsightCard,GoalCard,GoalCheckIn,EmotionIndicator,EmotionTrend component
 
-  linkStyle 22,23,24,25,26,27,28,29,30,31 stroke:#4285f4,stroke-width:3px
+  linkStyle 40,41,42,43,44,45,46 stroke:#4285f4,stroke-width:3px

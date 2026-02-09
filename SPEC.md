@@ -20,6 +20,7 @@ Second-Self is an **Autonomous Life Operating System** — a mobile-first web ap
 - React 19 + Vite + TypeScript (frontend)
 - Gemini Live for real-time voice (`gemini-2.5-flash-native-audio-preview-12-2025`)
 - Gemini 3 Flash for text generation and analysis
+- Gemini 3 Pro for agentic vision (`gemini-3-pro-preview`)
 - Text Embedding (`gemini-embedding-001`) for semantic search and deduplication
 - Client-side blackboard pattern with specialized agents
 - localStorage primary with Firebase cloud sync
@@ -107,6 +108,7 @@ Second-Self is an **Autonomous Life Operating System** — a mobile-first web ap
   - Camera button → opens live video viewfinder for photo capture
   - Attach file button → file picker for documents/images
   - Attachment previews shown as popup grid above mic icon
+  - When attachments are added, image analysis runs immediately and results are sent to the Gemini Live API automatically
   - Auto-dismisses after AI responds to the message
   - Manual close (X) clears all attachments
 - Tools drawer (infrastructure present; tool definitions in `toolPrompts.ts` with ids: bio, decision, weekly, growth — currently inactive, tools array empty in Chat.tsx)
@@ -472,13 +474,14 @@ type ReviewResolution = 'confirm-left' | 'confirm-right' | 'reject-both' | 'merg
              │
 ┌────────────┴─────────────────────────────────────────────────────────────┐
 │                            AI Services                                    │
-│  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────┐   │
-│  │    Gemini Live      │  │   Gemini 3 Flash    │  │ Text Embedding  │   │
-│  │ gemini-2.5-flash-   │  │  Text Generation    │  │ gemini-embedding│   │
-│  │ native-audio-preview│  │  Claims/Actions/etc │  │ -001            │   │
-│  │ Voice: Kore         │  │                     │  │ Semantic Search │   │
-│  └─────────────────────┘  └─────────────────────┘  └─────────────────┘   │
-└──────────────────────────────────────────────────────────────────────────┘
+│  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌───────────────┐│
+│  │   Gemini Live     │ │  Gemini 3 Pro    │ │ Gemini 3 Flash   │ │Text Embedding ││
+│  │ gemini-2.5-flash- │ │ gemini-3-pro-    │ │ Text Generation   │ │gemini-embedding│
+│  │ native-audio-     │ │ preview          │ │ Claims/Actions/etc│ │-001           ││
+│  │ preview           │ │ Agentic Vision   │ │ Vision Fallback   │ │Semantic Search││
+│  │ Voice: Kore       │ │ (primary)        │ │                   │ │               ││
+│  └──────────────────┘ └──────────────────┘ └──────────────────┘ └───────────────┘│
+└──────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### 6.2 Blackboard Task Types
@@ -855,7 +858,7 @@ For Draft & Review actions:
 ### 12.5 Demo Video Script
 - **Run demo** (`npm run demo`): Automated ~3:10 video recording via Playwright + Gemini TTS
 - Script: `app/scripts/demo.mjs`
-- **Pre-generated narration**: All 16 narration clips are pre-generated at startup via Gemini TTS. No runtime/on-the-fly TTS generation during the demo. Narration is feature-focused (no specific data values), name-drops "Gemini 3 Flash" and "Gemini Embeddings" prominently.
+- **Pre-generated narration**: All 16 narration clips are pre-generated at startup via Gemini TTS. No runtime/on-the-fly TTS generation during the demo. Narration is feature-focused (no specific data values), name-drops "Gemini 3", "Gemini Embeddings", and "agentic vision" prominently.
 - **Sign-in narration**: Plays over the login screen before Hub loads
 - **5-turn chat**: Natural conversation flow — running achievement, restaurant booking (approve action), gift reminder (dismiss action), blood pressure photo (agentic vision), stress wrap-up. Realistic turn-taking: wait for AI text + audio to finish, play user simulation audio, then send user text. No voiceover during live interaction; chat narrations (extraction, vision) play after the final AI response.
 - **Flow per segment**: Navigate → speak pre-generated narration (scroll/click during speech) → await completion → navigate next
@@ -879,6 +882,7 @@ For Draft & Review actions:
 
 ### 13.2 Gemini Text (Analysis)
 - Model: `gemini-3-flash-preview` for text generation
+- Model: `gemini-3-pro-preview` for agentic vision (image analysis, primary)
 - Model: `gemini-embedding-001` for embeddings
 - Functions:
   - `extractClaimsAndActions()` — from transcript turns (supports thought signature preservation for cross-turn continuity)
@@ -891,7 +895,7 @@ For Draft & Review actions:
   - `generateCheckInResponse()` — AI coaching for goal check-ins
   - `generateActionDraft()` — draft content for autonomous actions
   - `consolidateMemorySummary()` — merge new conversation summary into rolling memory summary (500-word cap)
-  - `analyzeImage()` — Agentic Vision (Think/Act/Observe): multimodal image input with code execution and thinking mode for intelligent data extraction from photos (receipts, schedules, charts, documents)
+  - `analyzeImage()` — Agentic Vision (Think/Act/Observe): multimodal image input with code execution and thinking mode for intelligent data extraction from photos (receipts, schedules, charts, documents). Uses `gemini-3-pro-preview` as primary model with `gemini-3-flash-preview` as fallback. Retry with exponential backoff (4 attempts per model with jitter)
 - Automatic context caching: all generateContent calls log cache hit metrics via `usageMetadata.cachedContentTokenCount` for cost monitoring
 
 ### 13.3 Agent Pipeline
