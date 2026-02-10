@@ -92,62 +92,7 @@ Every Gemini call flows through one of four paths:
 
 ## Architecture
 
-```mermaid
-graph TB
-  subgraph UI["UI Layer (React 19)"]
-    Hub & Chat & Reflect & Settings
-  end
-
-  subgraph Hooks["React Hooks"]
-    useVoice["useVoiceSession"] & useTranscript & usePipeline["useBlackboardPipeline"] & useSuggested["useSuggestedActions"] & useEmotion["useEmotionalTracking"] & useAttach["useAttachments"]
-  end
-
-  subgraph Pipeline["Agent Pipeline (Blackboard)"]
-    BB["Blackboard<br>Task Queue"]
-    Analyzer["AnalyzerAgent<br>extractClaimsAndActions()"] --> Validator["ValidatorAgent<br>embedText() + detectConflict()"] --> Publisher["ActionPublishAgent<br>Surface to UI"]
-  end
-
-  subgraph Services
-    LiveAudio["liveAudioService"]
-    MemCtx["memoryContext"]
-    FocusGen["focusGenerator"]
-    EmotionTrack["emotionTracker"]
-    ActionExec["actionExecutor"]
-    StorageUp["storageUpload"]
-  end
-
-  subgraph Data["Data Layer"]
-    Backend["backend.ts<br>(API Facade)"]
-    LocalStore["localStore.ts<br>(localStorage)"]
-    FSStore["firestoreStore.ts"]
-    WriteGate["firestoreWriteGate"]
-  end
-
-  Chat --> useVoice & useTranscript & usePipeline & useSuggested & useEmotion & useAttach
-  Hub --> FocusGen & EmotionTrack
-  useVoice --> LiveAudio & MemCtx
-  useTranscript --> BB
-  useSuggested --> ActionExec
-
-  LiveAudio ==>|"bidiGenerateContent<br>(real-time audio)"| GeminiLive["Gemini Live API<br>gemini-2.5-flash-native-audio"]:::gemini
-  LiveAudio ==>|"ai.chats.create<br>(text fallback)"| GeminiFlash["Gemini 3 Flash<br>gemini-3-flash-preview"]:::gemini
-  Backend ==>|"analyzeImage<br>(primary, code exec)"| GeminiPro["Gemini 3 Pro<br>gemini-3-pro-preview"]:::gemini
-  Backend ==>|"extract, analyze<br>summarize, detect<br>consolidate, image fallback"| GeminiFlash
-  Backend ==>|"embedText<br>embedQuery"| GeminiEmbed["Gemini Embedding<br>gemini-embedding-001"]:::gemini
-  ActionExec ==>|"generateDraft<br>(Search + URL tools)"| GeminiFlash
-  FocusGen ==>|"focus + insights<br>(code execution)"| GeminiFlash
-
-  Backend --> LocalStore & FSStore
-  FSStore --> WriteGate
-  FSStore --> Firestore["Cloud Firestore"]:::firebase
-  StorageUp -->|"uploadBytes"| Storage["Firebase Storage"]:::firebase
-  Backend -->|"commitSession<br>(writeBatch)"| Firestore
-
-  classDef gemini fill:#4285f4,stroke:#1a73e8,color:#fff,stroke-width:3px
-  classDef firebase fill:#ff9100,stroke:#e65100,color:#fff
-```
-
-**Thick blue nodes = Gemini API integration points**
+![System Architecture](doc/infrastructure.png)
 
 ---
 
